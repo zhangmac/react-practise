@@ -19,7 +19,7 @@ class App extends Component {
     <div className="App">
         <h1>My projects</h1>
       <div className="inputWrapper">
-        <input type="text" value={this.state.newTodo}/>
+        <input content={this.state.newTodo}/>
       </div>
       <ol>
       {todos}
