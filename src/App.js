@@ -11,23 +11,21 @@ class App extends Component {
     super(props)
     this.state= {
       newTodo:" ",
-      todoList:[
-        {id:1,title:"我的待办事项1"},
-        {id:2,title:"我的待办事项2"}
-      ]
+      todoList:[   ]
     }
   }
   render() {
     let todos = this.state.todoList.map((item,index)=>{
       return (
-          <li key={index}><TodoItem todo={item.title}/></li>
+          <li key={index}><TodoItem todo={item} onToggle={this.toggle.bind(this)}
+                           onDeleted={this.delete.bind(this)}/></li>
        )
     })
     return(
     <div className="App">
         <h1>My projects</h1>
       <div className="inputWrapper">
-        <TodoInput content={this.state.newTodo} onSubmit={this.addTodo.bind(this)}/>
+        <TodoInput content={this.state.newTodo} onSubmit={this.addTodo.bind(this)} onChange={this.changeTitle.bind(this)}/>
       </div>
       <ol>
       {todos}
@@ -51,6 +49,20 @@ class App extends Component {
       id+=1
       return id
     }
+  }
+  changeTitle(e) {
+    this.setState ({
+      newTodo:e.target.value,
+      todoList:this.state.todoList
+    })
+  }
+  toggle(e,todo) {
+    todo.status = todo.status === 'completed' ? '' : 'completed'
+    this.setState(this.state)
+  }
+  delete(e,todo) {
+    todo.deleted=true
+    this.setState(this.state)
   }
 }
 
