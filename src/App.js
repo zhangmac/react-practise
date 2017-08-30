@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
-import './App.css';
-import TodoInput from './TodoInput';
-import TodoItem from './TodoItem';
+import React, { Component } from 'react'
+import './App.css'
+import 'normalize.css'
+import './reset.css'
+import TodoInput from './TodoInput'
+import TodoItem from './TodoItem'
+
 
 class App extends Component {
   constructor(props) {
@@ -9,7 +12,8 @@ class App extends Component {
     this.state= {
       newTodo:"test",
       todoList:[
-        {id:1,title:"go to winterfell"}
+        {id:1,title:"我的待办事项1"},
+        {id:2,title:"我的待办事项2"}
       ]
     }
   }
