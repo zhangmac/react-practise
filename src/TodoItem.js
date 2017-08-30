@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 class TodoItem extends Component {
     render() {
           return (
-           <div>
+           <div className="TodoItem">
               <input type='checkbox' checked={this.props.todo.status==='compeleted'}
-               onChange={this.toggle.bind(this)}/>{this.props.todo.title}
-                    <button onClick={this.delete.bind(this)}>删除</button>
+               onChange={this.toggle.bind(this)}/>
+               <span className="title">{this.props.todo.title}</span>
+               <button onClick={this.delete.bind(this)}>删除</button>
             </div>  
           )  
     }
@@ -17,4 +18,4 @@ class TodoItem extends Component {
         this.props.onDeleted(e,this.props.todo)
     }
 }
-export default TodoItem
+export default TodoItem 
