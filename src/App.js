@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state= {
-      newTodo:"test",
+      newTodo:" ",
       todoList:[
         {id:1,title:"我的待办事项1"},
         {id:2,title:"我的待办事项2"}
@@ -20,20 +20,37 @@ class App extends Component {
   render() {
     let todos = this.state.todoList.map((item,index)=>{
       return (
-          <li><TodoItem todo={item.title}/></li>
+          <li key={index}><TodoItem todo={item.title}/></li>
        )
     })
     return(
     <div className="App">
         <h1>My projects</h1>
       <div className="inputWrapper">
-        <TodoInput content={this.state.newTodo}/>
+        <TodoInput content={this.state.newTodo} onSubmit={this.addTodo.bind(this)}/>
       </div>
       <ol>
       {todos}
     </ol>
     </div>
     ) 
+  }
+  addTodo(e) {
+    this.state.todoList.unshift({
+      id:idMaker(),
+      title:e.target.value,
+      status:null,
+      deleted:false
+    })
+    this.setState ({
+      newTodo:" ",
+      todoList:this.state.todoList
+    })
+    let id=0
+    function idMaker() {
+      id+=1
+      return id
+    }
   }
 }
 
