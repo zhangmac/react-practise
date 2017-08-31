@@ -6,15 +6,14 @@ import './TodoItem.css'
 import './TodoInput.css'
 import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
-import * as LocalStore from './LocalStore'
-
+import UserDialog from './UserDialog'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state= {
       newTodo:" ",
-      todoList: LocalStore.load('todoList') || []
+      todoList: []
     }
   }
   render() {
@@ -33,9 +32,15 @@ class App extends Component {
       <ol className="todoList">
       {todos}
     </ol>
+     <UserDialog />
     </div>
     ) 
   }
+
+  ComponentDidUpdate() {
+   
+  }
+
   addTodo(e) {
     this.state.todoList.unshift({
       id:idMaker(),
@@ -47,30 +52,29 @@ class App extends Component {
       newTodo:" ",
       todoList:this.state.todoList
     })
-    LocalStore.save('todoList', this.state.todoList)
-
+    
     let id=0
     function idMaker() {
       id+=1
       return id
     }
   }
+
   changeTitle(e) {
     this.setState ({
       newTodo:e.target.value,
       todoList:this.state.todoList
     })
-    LocalStore.save('todoList', this.state.todoList)
   }
+
   toggle(e,todo) {
     todo.status = todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state)
-    LocalStore.save('todoList', this.state.todoList)
   }
+
   delete(e,todo) {
     todo.deleted=true
     this.setState(this.state)
-    LocalStore.save('todoList', this.state.todoList)
   }
 }
 
