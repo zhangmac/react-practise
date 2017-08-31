@@ -12,9 +12,11 @@
 }
 .userdialog > nav:first-child{ 
     padding: 1em; 
+    margin-left: -2em;
 }
-.userdialog > nav:first-child input[type=radio]:not(:first-child){
-     margin-left: 2em; 
+.userdialog > nav:first-child label{
+     margin-left: 2em;
+     cursor: pointer; 
     }
 
 .userdialog > .panel { 
