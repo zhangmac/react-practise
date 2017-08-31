@@ -6,6 +6,7 @@ import './TodoItem.css'
 import './TodoInput.css'
 import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
+import * as LocalStore from './LocalStore'
 
 
 class App extends Component {
@@ -13,7 +14,7 @@ class App extends Component {
     super(props)
     this.state= {
       newTodo:" ",
-      todoList:[   ]
+      todoList: LocalStore.load('todoList') || []
     }
   }
   render() {
@@ -25,7 +26,7 @@ class App extends Component {
     })
     return(
     <div className="App">
-        <h1>My projects</h1>
+        <h1>待办事项</h1>
       <div className="inputWrapper">
         <TodoInput content={this.state.newTodo} onSubmit={this.addTodo.bind(this)} onChange={this.changeTitle.bind(this)}/>
       </div>
@@ -46,6 +47,8 @@ class App extends Component {
       newTodo:" ",
       todoList:this.state.todoList
     })
+    LocalStore.save('todoList', this.state.todoList)
+
     let id=0
     function idMaker() {
       id+=1
@@ -57,14 +60,17 @@ class App extends Component {
       newTodo:e.target.value,
       todoList:this.state.todoList
     })
+    LocalStore.save('todoList', this.state.todoList)
   }
   toggle(e,todo) {
     todo.status = todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state)
+    LocalStore.save('todoList', this.state.todoList)
   }
   delete(e,todo) {
     todo.deleted=true
     this.setState(this.state)
+    LocalStore.save('todoList', this.state.todoList)
   }
 }
 
